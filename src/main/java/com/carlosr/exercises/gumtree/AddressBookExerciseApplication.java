@@ -17,6 +17,7 @@ public class AddressBookExerciseApplication {
 
 		AddressBookService serviceExceptionHandler = (AddressBookService) applicationContext.getBean("serviceExceptionHandler");
 
+		//NOTE: In normal circumstances a logging framework would have to be used instead throughout the whole code base.
 		System.out.println("Answer to question 1 " + serviceExceptionHandler.findNumberOfMales());
 		System.out.println("Answer to question 2 " + serviceExceptionHandler.findOldestPerson());
 		System.out.println("Answer to question 3 " + serviceExceptionHandler.calculateDaysBetweenDOBs("Bill McKnight", "Paul Robinson"));
