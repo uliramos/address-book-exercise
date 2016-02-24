@@ -1,9 +1,16 @@
 package com.carlosr.exercises.gumtree.dao;
 
+import au.com.bytecode.opencsv.CSVReader;
+import com.carlosr.exercises.gumtree.converter.PersonConverter;
 import com.carlosr.exercises.gumtree.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,15 +19,21 @@ import java.util.List;
 @Component
 public class DefaultAddressBookDAO implements AddressBookDAO {
 
-    private final AddressDataSource dataSource;
+    public static final char SEPARATOR = ',';
+    public static final String FILE_NAME = "AddressBook.csv";
+
+    private final PersonConverter personConverter;
+
+    private ResourceLoader resourceLoader;
 
     /**
      * Constructor expecting the mandatory AddressDataSource dependency.
-     * @param dataSource
+     * @param personConverter
      */
     @Autowired
-    public DefaultAddressBookDAO(AddressDataSource dataSource) {
-        this.dataSource = dataSource;
+    public DefaultAddressBookDAO(PersonConverter personConverter, ResourceLoader resourceLoader) {
+        this.personConverter = personConverter;
+        this.resourceLoader = resourceLoader;
     }
 
     /**
@@ -28,6 +41,25 @@ public class DefaultAddressBookDAO implements AddressBookDAO {
      * @return
      */
     public List<Person> getAll() {
-        return null;
+        List<Person> personList = new ArrayList<>();
+        CSVReader reader = null;
+        String [] personFields;
+        Resource resource = resourceLoader.getResource("classpath:/" + FILE_NAME);
+        try {
+            reader = new CSVReader(new InputStreamReader(resource.getInputStream()), SEPARATOR);
+
+            while ((personFields = reader.readNext()) != null) {
+                personList.add(this.personConverter.convert(personFields[0], personFields[1], personFields[2]));
+            }
+        } catch (Exception e) {
+            //log Exception
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException ioe) {
+                //log Exception
+            }
+        }
+        return personList;
     }
 }
