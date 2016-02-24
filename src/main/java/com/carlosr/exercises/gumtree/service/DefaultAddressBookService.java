@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Default implementation of AddressBookService.
@@ -29,7 +28,8 @@ public class DefaultAddressBookService implements AddressBookService {
      * Find the number of males present in the Address Book.
      * @return
      */
-    public long findNumberOfMales() {
+    @Override
+    public Long findNumberOfMales() {
         List<Person> personList = this.addressBookDAO.getAll();
         long result = personList.stream().filter(p  -> p.getGender() == Gender.male)
                                          .count();
@@ -40,22 +40,31 @@ public class DefaultAddressBookService implements AddressBookService {
      * Find the oldest person present in the Address Book.
      * @return
      */
+    @Override
     public Person findOldestPerson() {
         List<Person> personList = this.addressBookDAO.getAll();
 
-        return personList.stream().min((p1, p2) -> p1.getDob().compareTo(p2.getDob())).get();
-
+        return personList.stream().min((p1, p2) -> p1.getDob()
+                                  .compareTo(p2.getDob())).get();
     }
 
     /**
      * Find the oldest person present in the Address Book.
      * @return
      */
-    public long calculateDaysBetweenDOBs() {
+    @Override
+    public Long calculateDaysBetweenDOBs() {
         List<Person> personList = this.addressBookDAO.getAll();
 
-        Person person = personList.stream().filter(p -> p.getName().equals("Bill McKnight")).findFirst().get();
-        Person otherPerson = personList.stream().filter(p -> p.getName().equals("Paul Robinson")).findFirst().get();
+        Person person = personList.stream().filter(p -> p.getName()
+                                           .equals("Bill McKnight"))
+                                           .findFirst()
+                                           .get();
+
+        Person otherPerson = personList.stream().filter(p -> p.getName()
+                                                .equals("Paul Robinson"))
+                                                .findFirst()
+                                                .get();
 
         LocalDate personDate = person.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate otherPersonDate = otherPerson.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

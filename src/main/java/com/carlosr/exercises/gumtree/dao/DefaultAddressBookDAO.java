@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Default implementations for AddressBookDAO.
+ * Default implementation for AddressBookDAO.
  */
 @Component
 public class DefaultAddressBookDAO implements AddressBookDAO {
@@ -27,11 +27,14 @@ public class DefaultAddressBookDAO implements AddressBookDAO {
     private ResourceLoader resourceLoader;
 
     /**
-     * Constructor expecting the mandatory AddressDataSource dependency.
+     * Constructor expecting the mandatory
+     * dependencies passed in.
+     *
      * @param personConverter
+     * @param resourceLoader
      */
     @Autowired
-    public DefaultAddressBookDAO(PersonConverter personConverter, ResourceLoader resourceLoader) {
+    public DefaultAddressBookDAO(PersonConverter personConverter,  ResourceLoader resourceLoader) {
         this.personConverter = personConverter;
         this.resourceLoader = resourceLoader;
     }

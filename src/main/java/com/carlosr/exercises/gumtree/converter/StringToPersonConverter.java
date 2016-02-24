@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
- * StringToPerson implementations of Converter.
+ * StringToPerson implementation of PersonConverter.
  */
 @Component
 public class StringToPersonConverter implements PersonConverter {
@@ -30,7 +30,7 @@ public class StringToPersonConverter implements PersonConverter {
         return new Person(name, Gender.valueOf(gender.toLowerCase()), parseDateString(dob));
     }
 
-    // helper methods
+    // helper methods //
 
     private Date parseDateString(String str) {
         DateFormat formatter= new SimpleDateFormat("dd/MM/yy");

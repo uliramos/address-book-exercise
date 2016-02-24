@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Person entity definition.
  */
-public class Person {
+public final class Person {
     private String name;
     private Gender gender;
     private Date dob;
@@ -22,7 +22,6 @@ public class Person {
         this.dob = dob;
     }
 
-
     // getters and setters //
 
     public String getName() {
@@ -30,24 +29,12 @@ public class Person {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Gender getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
     public Date getDob() {
         return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     @Override

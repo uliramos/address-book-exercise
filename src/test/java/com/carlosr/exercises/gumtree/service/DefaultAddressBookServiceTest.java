@@ -19,7 +19,7 @@ public class DefaultAddressBookServiceTest {
 
     @Test
     public void findOldestMale_returns_the_right_elements() {
-        int expectedNumElem = 3;
+        Long expectedNumElem = 3L;
 
         Assert.assertEquals(expectedNumElem, this.unitUnderTest.findNumberOfMales());
     }
