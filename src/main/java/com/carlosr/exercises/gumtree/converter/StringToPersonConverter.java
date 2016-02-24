@@ -18,6 +18,6 @@ public class StringToPersonConverter implements PersonConverter {
      * @return
      */
     public Person convert(String name, String gender, String dob) {
-        return new Person(name, Gender.valueOf(gender), null);
+        return new Person(name, Gender.valueOf(gender.toLowerCase()), null);
     }
 }

@@ -40,6 +40,7 @@ public class DefaultAddressBookDAO implements AddressBookDAO {
      * Get all person entities in the address book.
      * @return
      */
+    @Override
     public List<Person> getAll() {
         List<Person> personList = new ArrayList<>();
         CSVReader reader = null;
@@ -49,10 +50,11 @@ public class DefaultAddressBookDAO implements AddressBookDAO {
             reader = new CSVReader(new InputStreamReader(resource.getInputStream()), SEPARATOR);
 
             while ((personFields = reader.readNext()) != null) {
-                personList.add(this.personConverter.convert(personFields[0], personFields[1], personFields[2]));
+                personList.add(this.personConverter.convert(personFields[0].trim(), personFields[1].trim(), personFields[2].trim()));
             }
         } catch (Exception e) {
             //log Exception
+            e.printStackTrace();
         } finally {
             try {
                 reader.close();
