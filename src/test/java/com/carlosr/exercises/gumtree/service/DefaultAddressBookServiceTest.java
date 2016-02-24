@@ -2,6 +2,7 @@ package com.carlosr.exercises.gumtree.service;
 
 
 import com.carlosr.exercises.gumtree.AddressBookExerciseApplication;
+import com.carlosr.exercises.gumtree.model.Person;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,5 +21,12 @@ public class DefaultAddressBookServiceTest {
     public void findOldestMale_returns_the_right_elements() {
         int expectedNumElem = 3;
         Assert.assertEquals(expectedNumElem, this.unitUnderTest.findNumberOfMales());
+    }
+
+    @Test
+    public void findOldestPerson_returns_the_right_person() {
+        Person person = this.unitUnderTest.findOldestPerson();
+
+        Assert.assertEquals("Wes Jackson", person.getName());
     }
 }

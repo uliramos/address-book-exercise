@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Default implementation of AddressBookService.
@@ -22,7 +23,7 @@ public class DefaultAddressBookService implements AddressBookService {
     }
 
     /**
-     * Find the oldest male present in the Address Book.
+     * Find the number of males present in the Address Book.
      * @return
      */
     public long findNumberOfMales() {
@@ -30,5 +31,16 @@ public class DefaultAddressBookService implements AddressBookService {
         long result = personList.stream().filter(p1  -> p1.getGender() == Gender.male)
                                          .count();
         return result;
+    }
+
+    /**
+     * Find the oldest person present in the Address Book.
+     * @return
+     */
+    public Person findOldestPerson() {
+        List<Person> personList = this.addressBookDAO.getAll();
+
+        return personList.stream().min((p1, p2) -> p1.getDob().compareTo(p2.getDob())).get();
+
     }
 }
