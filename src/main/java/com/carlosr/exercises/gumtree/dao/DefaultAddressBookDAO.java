@@ -53,8 +53,8 @@ public class DefaultAddressBookDAO implements AddressBookDAO {
                 personList.add(this.personConverter.convert(personFields[0].trim(), personFields[1].trim(), personFields[2].trim()));
             }
         } catch (Exception e) {
-            //log Exception
-            e.printStackTrace();
+            throw new RuntimeException(e);
+
         } finally {
             try {
                 reader.close();
