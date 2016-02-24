@@ -20,6 +20,7 @@ public class DefaultAddressBookServiceTest {
     @Test
     public void findOldestMale_returns_the_right_elements() {
         int expectedNumElem = 3;
+
         Assert.assertEquals(expectedNumElem, this.unitUnderTest.findNumberOfMales());
     }
 
@@ -28,5 +29,13 @@ public class DefaultAddressBookServiceTest {
         Person person = this.unitUnderTest.findOldestPerson();
 
         Assert.assertEquals("Wes Jackson", person.getName());
+    }
+
+    @Test
+    public void calculateDaysBetweenDOBs_returns_the_right_number_of_days() {
+        int expectedDays = 2862;
+        long days = this.unitUnderTest.calculateDaysBetweenDOBs();
+
+        Assert.assertEquals(expectedDays, days);
     }
 }

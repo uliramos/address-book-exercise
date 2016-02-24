@@ -6,8 +6,11 @@ import com.carlosr.exercises.gumtree.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Default implementation of AddressBookService.
@@ -28,7 +31,7 @@ public class DefaultAddressBookService implements AddressBookService {
      */
     public long findNumberOfMales() {
         List<Person> personList = this.addressBookDAO.getAll();
-        long result = personList.stream().filter(p1  -> p1.getGender() == Gender.male)
+        long result = personList.stream().filter(p  -> p.getGender() == Gender.male)
                                          .count();
         return result;
     }
@@ -42,5 +45,21 @@ public class DefaultAddressBookService implements AddressBookService {
 
         return personList.stream().min((p1, p2) -> p1.getDob().compareTo(p2.getDob())).get();
 
+    }
+
+    /**
+     * Find the oldest person present in the Address Book.
+     * @return
+     */
+    public long calculateDaysBetweenDOBs() {
+        List<Person> personList = this.addressBookDAO.getAll();
+
+        Person person = personList.stream().filter(p -> p.getName().equals("Bill McKnight")).findFirst().get();
+        Person otherPerson = personList.stream().filter(p -> p.getName().equals("Paul Robinson")).findFirst().get();
+
+        LocalDate personDate = person.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate otherPersonDate = otherPerson.getDob().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        return ChronoUnit.DAYS.between(personDate, otherPersonDate);
     }
 }
