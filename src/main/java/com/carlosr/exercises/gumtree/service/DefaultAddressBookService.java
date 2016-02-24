@@ -53,16 +53,16 @@ public class DefaultAddressBookService implements AddressBookService {
      * @return
      */
     @Override
-    public Long calculateDaysBetweenDOBs() {
+    public Long calculateDaysBetweenDOBs(String name, String otherName) {
         List<Person> personList = this.addressBookDAO.getAll();
 
         Person person = personList.stream().filter(p -> p.getName()
-                                           .equals("Bill McKnight"))
+                                           .equals(name))
                                            .findFirst()
                                            .get();
 
         Person otherPerson = personList.stream().filter(p -> p.getName()
-                                                .equals("Paul Robinson"))
+                                                .equals(otherName))
                                                 .findFirst()
                                                 .get();
 

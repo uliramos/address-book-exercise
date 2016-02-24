@@ -10,5 +10,5 @@ public interface AddressBookService {
 
     Person findOldestPerson();
 
-    Long calculateDaysBetweenDOBs();
+    Long calculateDaysBetweenDOBs(String name, String otherName);
 }

@@ -34,7 +34,7 @@ public class DefaultAddressBookServiceTest {
     @Test
     public void calculateDaysBetweenDOBs_returns_the_right_number_of_days() {
         int expectedDays = 2862;
-        long days = this.unitUnderTest.calculateDaysBetweenDOBs();
+        long days = this.unitUnderTest.calculateDaysBetweenDOBs("Bill McKnight", "Paul Robinson");
 
         Assert.assertEquals(expectedDays, days);
     }
